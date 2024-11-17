@@ -1,6 +1,6 @@
-using ERP_Project.Models;
+﻿using ERP_Project.Models;
 using Microsoft.EntityFrameworkCore;
-
+using ERP_Project.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -30,5 +30,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Seed Databse
+await DbInitializer.SeedDefaultAsync(app);
 
 app.Run();
