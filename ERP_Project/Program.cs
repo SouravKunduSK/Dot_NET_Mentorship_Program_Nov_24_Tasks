@@ -31,4 +31,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//Seed Databse
+await DbInitializer.SeedDefaultAsync(app);
+
 app.Run();
