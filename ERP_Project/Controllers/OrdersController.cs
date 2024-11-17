@@ -23,9 +23,14 @@ namespace ERP_Project.Controllers
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult> GetOrderById(int id)
         {
-            return "value";
+            var order = await _context.tblOrders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
         }
 
         // POST api/<OrdersController>
@@ -52,7 +57,7 @@ namespace ERP_Project.Controllers
             product.Stock -= order.Quantity;
             await _context.tblOrders.AddAsync(newOrder);
             await _context.SaveChangesAsync();
-            return Ok(order);
+            return CreatedAtAction("GetOrderById",new { id = newOrder.Id }, newOrder);
         }
 
         // PUT api/<OrdersController>/5
