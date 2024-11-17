@@ -8,7 +8,7 @@ namespace ERP_Project.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Customer Name is required!")]
         public string CustomerName { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Quantity {  get; set; }
