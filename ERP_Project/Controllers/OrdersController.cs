@@ -92,8 +92,19 @@ namespace ERP_Project.Controllers
 
         // DELETE api/<OrdersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteOrder(int id)
         {
+            var order = await _context.tblOrders
+                .Include(o => o.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
+            if (order == null) 
+            {
+               return NotFound("Order not found!");
+            }
+            order.Product.Stock += order.Quantity;
+            _context.tblOrders.Remove(order);
+            await _context.SaveChangesAsync();
+            return Ok(order);
         }
     }
 }
