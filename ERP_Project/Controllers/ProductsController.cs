@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ERP_Project.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +10,30 @@ namespace ERP_Project.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly ERPDbContext _context;
+        public ProductsController(ERPDbContext context)
+        {
+            _context = context;
+        }
         // GET: api/<ProductsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("LowStock")]
+        public async Task<IActionResult> GetLowStockProducts([FromQuery] decimal threshold)
         {
-            return new string[] { "value1", "value2" };
+            var products = await _context.tblProducts
+                .Where(p=>p.Stock<threshold)
+                .Select(p=> new
+                {
+                   ProductName = p.Name,
+                   UnitPrices = p.UnitPrice,
+                    Stock = p.Stock
+                }).ToListAsync();
+            if(products==null)
+            {
+                return NotFound("No Product Found!");
+            }
+
+            return Ok(products);
         }
 
         // GET api/<ProductsController>/5
