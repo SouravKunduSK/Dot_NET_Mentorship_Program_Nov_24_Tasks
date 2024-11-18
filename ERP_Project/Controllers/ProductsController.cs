@@ -42,13 +42,13 @@ namespace ERP_Project.Controllers
         public async Task<IActionResult> GetUnOrderedProducts()
         {
             var products = await _context.tblProducts
-                .Where(p=> !_context.tblOrders.Any(o=>o.ProductId==p.Id))
-                .Select(p=> new {
-                    ProductName =  p.Name,
+                .Where(p => !_context.tblOrders.Any(o => o.ProductId == p.Id))
+                .Select(p => new {
+                    ProductName = p.Name,
                     UnitPrices = p.UnitPrice,
                     Stock = p.Stock
                 }).ToListAsync();
-            if (products == null || products.Count<1)
+            if (products == null || products.Count < 1)
             {
                 return NotFound("No Product Found!");
             }
