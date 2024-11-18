@@ -120,7 +120,7 @@ namespace ERP_Project.Controllers
         }
 
 
-        //Get api/ product summary
+        //Get api/ product/ summary
         [HttpGet]
         [Route("Products/Summary")]
         public async Task<IActionResult> GetSummary()
@@ -135,5 +135,7 @@ namespace ERP_Project.Controllers
                 }).ToListAsync();
             return Ok(summary);
         }
+
+
     }
 }
