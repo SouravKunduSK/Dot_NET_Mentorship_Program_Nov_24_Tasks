@@ -1,5 +1,6 @@
 ﻿using ERP_Project.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,8 +29,9 @@ namespace ERP_Project.Controllers
             var order = await _context.tblOrders.FindAsync(id);
             if (order == null)
             {
-                return NotFound();
+                return NotFound("Order not found.");
             }
+            order.OrderDate = order.OrderDate.Value.ToLocalTime();
             return Ok(order);
         }
 
@@ -62,8 +64,30 @@ namespace ERP_Project.Controllers
 
         // PUT api/<OrdersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateOrder(int id, Order order)
         {
+            var existingOrder = await _context.tblOrders
+                .Include(o=>o.Product)
+                .FirstOrDefaultAsync(o=>o.Id == id);
+            if (existingOrder==null)
+            {
+                return NotFound("Order not found.");
+            }
+            if(order.Quantity<1)
+            {
+                return BadRequest("Quantity must be 1 or more!");
+            }
+
+            var quantityDifference = order.Quantity - existingOrder.Quantity;
+            if(existingOrder.Product.Stock < quantityDifference)
+            {
+                return BadRequest("Insufficient stock for updatig!");
+            }
+
+            existingOrder.Product.Stock -= quantityDifference;
+            existingOrder.Quantity = order.Quantity;
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetOrderById", new {id = existingOrder.Id},existingOrder);
         }
 
         // DELETE api/<OrdersController>/5

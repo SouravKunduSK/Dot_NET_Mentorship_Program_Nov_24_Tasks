@@ -16,6 +16,6 @@ namespace ERP_Project.Models
         public decimal Stock{ get; set; }
 
         [JsonIgnore]
-        public virtual List<Order>? Orders { get; set; }
+        public virtual List<Order> Orders { get; set; }
     }
 }
