@@ -118,5 +118,22 @@ namespace ERP_Project.Controllers
             await _context.SaveChangesAsync();
             return Ok(order);
         }
+
+
+        //Get api/ product summary
+        [HttpGet]
+        [Route("Products/Summary")]
+        public async Task<IActionResult> GetSummary()
+        {
+            var summary = await _context.tblOrders
+                .GroupBy(o => o.Product)
+                .Select(g=> new
+                {
+                    ProductName = g.Key.Name,
+                    TotalQuantityOrdered = g.Sum(o=>o.Quantity),
+                    TotalRevenue = g.Sum(o=>o.Quantity*g.Key.UnitPrice)
+                }).ToListAsync();
+            return Ok(summary);
+        }
     }
 }
