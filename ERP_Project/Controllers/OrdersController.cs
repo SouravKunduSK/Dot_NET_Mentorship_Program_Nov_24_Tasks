@@ -136,6 +136,27 @@ namespace ERP_Project.Controllers
             return Ok(summary);
         }
 
+        //Get api/ TopCustomers
+        [HttpGet]
+        [Route("Customers")]
+        public async Task<IActionResult> GetTopCustomers()
+        {
+            var customers = await _context.tblOrders
+                .GroupBy(o => o.CustomerName)
+                .OrderByDescending(g => g.Sum(o => o.Quantity))
+                .Take(3)
+                .Select(g => new
+                {
+                    CustomerName = g.Key,
+                    TotalQuantity = g.Sum(o => o.Quantity)
+                }).ToListAsync();
+            if(customers == null)
+            {
+                return NotFound("Customer not found!");
+            }
+
+            return Ok(customers);
+        }
 
     }
 }
