@@ -36,29 +36,24 @@ namespace ERP_Project.Controllers
             return Ok(products);
         }
 
-        // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<ProductsController>
+        [HttpGet]
+        [Route("UnOrdered")]
+        public async Task<IActionResult> GetUnOrderedProducts()
         {
-            return "value";
-        }
+            var products = await _context.tblProducts
+                .Where(p=> !_context.tblOrders.Any(o=>o.ProductId==p.Id))
+                .Select(p=> new {
+                    ProductName =  p.Name,
+                    UnitPrices = p.UnitPrice,
+                    Stock = p.Stock
+                }).ToListAsync();
+            if (products == null || products.Count<1)
+            {
+                return NotFound("No Product Found!");
+            }
 
-        // POST api/<ProductsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ProductsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProductsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(products);
         }
     }
 }
