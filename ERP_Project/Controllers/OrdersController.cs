@@ -17,14 +17,26 @@ namespace ERP_Project.Controllers
         }
         // GET: api/<OrdersController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAllOrders()
         {
-            return new string[] { "value1", "value2" };
+            var orders = await _context.tblOrders
+                .Include(o => o.Product)
+                .Select(o => new
+                {
+                    o.Id,
+                    o.CustomerName,
+                    o.Quantity,
+                    OrderDate = o.OrderDate.Value.ToLocalTime(),
+                    ProductName = o.Product.Name,
+                    o.Product.UnitPrice
+
+                }).ToListAsync();
+            return Ok(orders);
         }
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetOrderById(int id)
+        public async Task<IActionResult> GetOrderById(int id)
         {
             var order = await _context.tblOrders.FindAsync(id);
             if (order == null)
