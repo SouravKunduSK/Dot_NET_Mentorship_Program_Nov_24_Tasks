@@ -49,7 +49,7 @@ namespace ERP_Project.Controllers
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<IActionResult> CreateNewOrder(Order order)
+        public async Task<IActionResult> CreateNewOrder([FromBody]OrderDTO order)
         {
             var product = await _context.tblProducts.FindAsync(order.ProductId);
             if (product == null)
@@ -76,7 +76,7 @@ namespace ERP_Project.Controllers
 
         // PUT api/<OrdersController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrder(int id, Order order)
+        public async Task<IActionResult> UpdateOrder(int id,[FromBody] OrderDTO order)
         {
             var existingOrder = await _context.tblOrders
                 .Include(o=>o.Product)
@@ -158,5 +158,55 @@ namespace ERP_Project.Controllers
             return Ok(customers);
         }
 
+        [HttpPost]
+        [Route("BulkOrderCreation")]
+        public async Task<IActionResult> CreateBulkOrder([FromBody] List<OrderDTO> orders)
+        {
+            if (orders == null || !orders.Any())
+            {
+                return BadRequest("Order list cannot be empty.");
+            }
+                
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                foreach (var order in orders)
+                {
+                    //Check if product exists
+                    var product = await _context.tblProducts.FirstOrDefaultAsync(p=>p.Id == order.ProductId);
+                    if (product == null)
+                    {
+                        throw new Exception($"Product with ID {order.ProductId} does not exist.");
+                    }
+                    //Check stock
+                    if(product.Stock<order.Quantity)
+                    {
+                        throw new Exception($"Insufficient stock for Product ID {order.ProductId}. Available stock: {product.Stock}");
+                    }
+
+                    //Create new order
+                    var newOrder = new Order()
+                    {
+                        ProductId = order.ProductId,
+                        CustomerName = order.CustomerName,
+                        Quantity = order.Quantity,
+                        OrderDate = DateTime.UtcNow
+                    };
+
+                    await _context.tblOrders.AddAsync(newOrder);
+                    product.Stock -= order.Quantity;
+                    _context.tblProducts.Update(product);
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return Ok("Bulk orders created successfully.");
+            }
+            catch (Exception ex) 
+            {
+                await transaction.RollbackAsync();
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
