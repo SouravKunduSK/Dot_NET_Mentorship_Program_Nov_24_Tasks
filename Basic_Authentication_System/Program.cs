@@ -1,7 +1,15 @@
+using Basic_Authentication_System.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Database Configuration
+builder.Services.AddDbContext<AuthDbContext>(options=>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+});
 
 var app = builder.Build();
 
