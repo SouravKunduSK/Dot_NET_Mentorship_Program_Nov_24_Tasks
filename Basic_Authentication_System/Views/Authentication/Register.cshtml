@@ -1,0 +1,119 @@
+﻿@model Basic_Authentication_System.Models.ViewModels.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card w-100" style="max-width: 500px;">
+        <div class="card-body">
+            <h3 class="text-center">Create New Account!</h3>
+
+            <hr />
+            <form asp-action="RegisterSubmited" method="post">
+                <div asp-validation-summary="None" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label">First Name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label">Last Name</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email Address</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <!-- Password Field -->
+                <div class="form-group" id="userForm">
+                    <label asp-for="Password" class="control-label">Password</label>
+                    <input type="password" id="password" asp-for="Password" class="form-control" autocomplete="off" required />
+                    <i class="bi bi-eye-slash" style=" cursor: pointer; float:right;" id="togglePassword"></i>
+                    <span id="passwordErrorMessage" class="text-danger"></span>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                    <input type="password" asp-for="ConfirmPassword" autocomplete="off" class="form-control" required />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <hr />
+                <div class="form-group">
+                    <input type="submit" value="Register" class="form-control btn btn-outline-success" />
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@* @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+    const passwordField = document.getElementById('password');
+    const errorMessage = document.getElementById('passwordErrorMessage');
+      
+    passwordField.addEventListener('input', function() {
+        const password = passwordField.value;
+        let message = '';
+
+        // Check if the password is empty or undefined
+        if (!password) {
+            message = "Password is required.";
+        }
+        // Check if the password is at least 6 characters long
+        else if (password.length < 6) {
+            message = "Password must be at least 6 characters.";
+        }
+        // Check for at least one uppercase letter
+        else if (!/[A-Z]/.test(password)) {
+            message = "Password must contain at least one uppercase letter.";
+        }
+        // Check for at least one lowercase letter
+        else if (!/[a-z]/.test(password)) {
+            message = "Password must contain at least one lowercase letter.";
+        }
+        // Check for at least one number
+        else if (!/\d/.test(password)) {
+            message = "Password must contain at least one number.";
+        }
+        // Check for at least one special character
+        else if (!/[^A-Za-z0-9]/.test(password)) {
+            message = "Password must contain at least one special character.";
+        }
+
+                errorMessage.textContent = message;
+    });
+
+</script>
+
+<script>
+        const togglePassword = document.querySelector('#togglePassword');
+
+        togglePassword.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('bi-eye');
+        });
+</script>
+}
+<style>
+    i#togglePassword {
+        margin-top: -30px;
+        margin-right: 13px;
+    }
+</style>

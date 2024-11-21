@@ -1,10 +1,14 @@
+using Basic_Authentication_System.Helpers;
 using Basic_Authentication_System.Models;
+using Basic_Authentication_System.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 //Database Configuration
 builder.Services.AddDbContext<AuthDbContext>(options=>
 {
