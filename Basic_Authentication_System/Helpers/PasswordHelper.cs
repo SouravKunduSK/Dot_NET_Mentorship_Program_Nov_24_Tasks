@@ -19,7 +19,8 @@ namespace Basic_Authentication_System.Helpers
         //Verifying password
         public bool VerifyPassword(string realPassword, string password)
         {
-            var result = (realPassword == HashPassword(password)) ? false : true;
+            var check = HashPassword(password);
+            var result = (realPassword == check);
             return result;
         }
 

@@ -1,0 +1,61 @@
+﻿@model Basic_Authentication_System.Models.ViewModels.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+
+<div class="container d-flex justify-content-center align-items-center" style="margin-top:15vh">
+    <div class="card w-100" style="max-width: 500px;">
+        <div class="card-body">
+            <h3 class="text-center">Welcome Back!</h3>
+
+            <hr />
+            <form asp-action="LoginSubmited" method="post">
+                <div asp-validation-summary="None" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email Address</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Password</label>
+                    <input type="password" asp-for="Password" id="password" class="form-control" autocomplete="off" required />
+                    <i class="bi bi-eye-slash" style=" cursor: pointer; float:right;" id="togglePassword"></i>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <input type="submit" value="Log In" class="form-control btn btn-outline-success" />
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye slash icon
+            this.classList.toggle('bi-eye');
+        });
+    </script>
+
+}
+
+<style>
+    i#togglePassword {
+        margin-top: -30px;
+        margin-right: 13px;
+    }
+</style>
