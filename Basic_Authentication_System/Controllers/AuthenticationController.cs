@@ -1,16 +1,22 @@
-﻿using Basic_Authentication_System.Models;
+﻿using Basic_Authentication_System.Helpers;
+using Basic_Authentication_System.Models;
+using Basic_Authentication_System.Models.Database;
 using Basic_Authentication_System.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace Basic_Authentication_System.Controllers
 {
     public class AuthenticationController : Controller
     {
         private readonly AuthDbContext _context;
+        private readonly PasswordHelper _passwordHelper;
 
-        public AuthenticationController(AuthDbContext context)
+        public AuthenticationController(AuthDbContext context, PasswordHelper passwordHelper)
         {
             _context = context;
+            _passwordHelper = passwordHelper;
         }
         public IActionResult Index()
         {
@@ -25,17 +31,34 @@ namespace Basic_Authentication_System.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterSubmited(RegisterVM user)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var existsEmail = IsEmailExist(user.Email);
+                ViewBag.ErrorMessage = "Something went wrong! Try again...";
+                return View(new RegisterVM());
             }
-            return View("Register", new RegisterVM());
+            if(await IsEmailExistAsync(user.Email))
+            {
+                ViewBag.ErrorMessage = "<strong>Warning!</strong> <br/> This email has already been used! Try another.";
+                return View("Register", new RegisterVM());
+            }
+            var password = _passwordHelper.HashPassword(user.Password);
+            var newUser = new User()
+            {
+                Email = user.Email,
+                PasswordHash = password,
+                FullName = user.FirstName + " " + user.LastName,
+                LockoutEnabled = true,
+                RegisteredAt = DateTime.UtcNow
+            };
+            _context.tblUsers.Add(newUser);
+            await _context.SaveChangesAsync();
+            ViewBag.Message = "<strong>Congratulations!</strong> <br/> Account has been created successfully.";
+            return RedirectToAction("Login");
         }
         [NonAction]
-        private bool IsEmailExist(string email)
+        private async Task<bool> IsEmailExistAsync(string email)
         {
-            var existsEmail = _context.tblUsers.Any(u=>u.Email == email);
-            return existsEmail; 
+            return await _context.tblUsers.AnyAsync(u => u.Email == email);
         }
     }
 }

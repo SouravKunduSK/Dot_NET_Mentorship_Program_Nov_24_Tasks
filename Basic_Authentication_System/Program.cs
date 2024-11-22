@@ -15,6 +15,9 @@ builder.Services.AddDbContext<AuthDbContext>(options=>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
 });
 
+//Configure password helper
+builder.Services.AddTransient<PasswordHelper>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
