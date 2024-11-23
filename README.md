@@ -6,8 +6,8 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Task 1](#task-1): ERP project using ASP.NET Core WebAPI
-    - Task Accomplished
+- [Task 1:](#task-1) ERP project using ASP.NET Core WebAPI
+    - [Task Accomplished](#task-accomplished)
         - [Backend](#backend)
         - [Database](#database)
     - [Services](#services)
@@ -16,10 +16,10 @@
     - [Project Structure](#project-structure)
     - [API Endpoints](#api-endpoints)
     - [API Documentations](#api-documentations)
+        - [List of all orders](#list-of-all-orders)
         - [Create New Order](#create-new-order)
         - [Update Order](#update-order)
         - [Delete order by id](#delete-order-by-id)
-        - [List of all orders](#list-of-all-orders)
         - [Summary of ordered products](#summary-of-ordered-products)
         - [Retrieve products below a threshold](#retrieve-products-below-a-threshold)
         - [Get top 3 customers](#get-top-3-customers)
@@ -46,7 +46,7 @@
 
 
 
-## Overview 🚀
+🚀 ## Overview 
 The projects are created for the purpose of participating in .NET Mentorship Program - Nov 2024!
 Here two projects were given:
 -  ERP management system, &
@@ -60,7 +60,7 @@ Here two projects were given:
 #### Database
 - [x] MS SQL database integration
 ### Services
-#### Order management services
+#### Order Management Services
 - Create, Read, Update and Delete orders
 - List all orders
 - Summaray of ordered products, List un-ordered prodcts
@@ -77,7 +77,7 @@ Go to 'Manage NuGet Packages' or Open Package manager console in Visual Studio, 
 ```bash
 3.  Install-Package Microsoft.EntityFramework.Core.SQLServer
 ```
-### Project Structures
+### Project Structure
 - `ERP Project` for creating the ERP management system.
 - `Controllers` for creating api Controllers.
 - `Controllers/OrdersController` for managing api endpoints of order.
@@ -100,7 +100,7 @@ Go to 'Manage NuGet Packages' or Open Package manager console in Visual Studio, 
 ### API Documentations
 Here is the list of all api endpoints using curl command and Swagger UI.
 #### Orders Services
-##### List all orders
+##### List of all orders
 For listing all orders you may use below curl command:
 ```
 curl -X 'GET' \
@@ -241,7 +241,7 @@ Respone will be `201 OK` with following
 ##### Delete order by id
 Below curl can be used for deleting an order by id, this will take id by form query, success status will be `200 OK` and failed request output will be `404 not found`.
 
-##### Get summary 
+##### Summary of ordered products 
 Below curl can be used for getting summary with product detail:
 ~~~
 curl -X 'GET' \
@@ -278,7 +278,7 @@ Respone will be `201 OK` with following
   }
 ]
 ~~~
-#####  Get the top 3 customers
+#####  Get top 3 customers
 Below curl can be used for getting the top 3 customers
 ~~~
 curl -X 'GET' \
@@ -302,7 +302,7 @@ Respone will be `201 OK` with following
   }
 ]
 ~~~
-##### Bulk order creation
+##### Create Bulk Order
 Below curl can be used for bulk order creation
 ~~~
 curl -X 'POST' \
@@ -324,7 +324,7 @@ curl -X 'POST' \
 ~~~
 For error response will be `400` and for success will show `Orders created successfully`.
 #### Products Service
-##### Retrive products below a threshold
+##### Retrieve products below a threshold
 Below curl can be used for Retrive products below a threshold
 ~~~
 curl -X 'GET' \
@@ -341,7 +341,7 @@ It will take value by form query and show response `200 OK` with body
   }
 ]
 ```
-##### Retrived Un-Ordered products
+##### Find un-ordered products
 Below curl can be used for Retrived Un-Ordered products
 ~~~
 curl -X 'GET' \
