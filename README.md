@@ -5,15 +5,15 @@
 
 
 ## Table of Contents
-- [Overview](#Overview)
-- [Task 1](#Task1): ERP project using ASP.NET Core WebAPI
+- [Overview](#overview)
+- [Task 1](#task-1): ERP project using ASP.NET Core WebAPI
     - Task Accomplished
-        - [Backend](#Backend)
-        - [Database](#Database)
-    - [Services](#Services)
-        - [Order management Services](#Order_management_Services)
-    - [Necessary Nuget Packages / Libraries](#Necessary_Nuget_Packages_/_Libraries)
-    - [Project Structure](#Project_Structure)
+        - [Backend](#backend)
+        - [Database](#database)
+    - [Services](#services)
+        - [Order management Services](#order-management-services-task-1)
+    - [Necessary Nuget Packages / Libraries](#necessary-nuget-packages-/-libraries)
+    - [Project Structure](#project-structure)
     - API Endpoints
     - API Documentations
         - Create New Order
