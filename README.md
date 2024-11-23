@@ -11,7 +11,7 @@
         - [Backend](#backend)
         - [Database](#database)
     - [Services](#services)
-        - [Order Management Services](#order-management-services-task-1)
+        - [Order Management Services](#order-management-services)
     - [Necessary Nuget Packages / Libraries](#necessary-nuget-packages--libraries)
     - [Project Structure](#project-structure)
     - [API Endpoints](#api-endpoints)
@@ -40,13 +40,13 @@
         - [Access secure data (Token based Authorization)](#access-secure-data-token-based-authorization)
 - [Technology Stack](#technology-stack)
 - [How to run](#how-to-run)
-- [Acknowledgement](#acknowledgement)
+- [Acknowledgements](#acknowledgement)
 - [Limitations](#limitations)
 - [Conclusions](#conclusions)
 
 
 
-🚀 ## Overview 
+## 🚀 Overview 
 The projects are created for the purpose of participating in .NET Mentorship Program - Nov 2024!
 Here two projects were given:
 -  ERP management system, &
@@ -377,7 +377,7 @@ Go to 'Manage NuGet Packages' or Open Package manager console in Visual Studio, 
 ```bash
 4.  Install-Package Microsoft.Asp.NetCore.Authentication.Jwt Bearer
 ```
-### Project Structures
+### Project Structure
 - `Basic_Auth_System` for creating the Basic Authentication System.
 - `Controllers` for creating api Controllers.
 - `Controllers/AuthController` for managing api endpoints 
@@ -422,7 +422,7 @@ The response will be status `200 OK` with the following response body:
 }
 ~~~
 When the credentials are not correct, the response will be status `code 401` with message Invalid credentials and if locked out by providing error credentials more than 3 times shows `error code 500`
-##### Access Authorized data
+##### Access secure data (Token based Authorization)
 For this we have to use postman, in postman we have to copy the link and select auth as authorize and provide the token then send.
 If success shows `200 OK` with success message and for errors shows code `401 unauthorized`.
 
