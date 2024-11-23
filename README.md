@@ -6,7 +6,7 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Task 1](#task-1-erp-project-using-aspnet-core-webapi)
+- [Task 1:: ERP project using ASP.NET Core WebAPI](#task-1-erp-project-using-aspnet-core-webapi)
     - [Task Accomplished](#task-accomplished)
         - [Backend](#backend)
         - [Database](#database)
@@ -25,7 +25,7 @@
         - [Get top 3 customers](#get-top-3-customers)
         - [Find un-ordered products](#find-un-ordered-products)
         - [Create Bulk Order](#create-bulk-order)
-- [Task 2](#task-2-creating-basic-authentication-system-jwt-token-based)
+- [Task 2:Creating Basic Authentication System (JWT Token Based)](#task-2-creating-basic-authentication-system-jwt-token-based)
     - [Task Accomplished](#task-accomplished-1)
         - [Backend](#backend-1)
         - [Database](#database-1)
@@ -46,7 +46,7 @@
 
 
 
-## 🚀 Overview 
+## Overview 
 The projects are created for the purpose of participating in .NET Mentorship Program - Nov 2024!
 Here two projects were given:
 -  ERP management system, &
