@@ -11,9 +11,9 @@
         - [Backend](#Backend)
         - [Database](#Database)
     - [Services](#Services)
-        - Order management Services
-    - Necessary Nuget Packages / Libraries
-    - Project Structure
+        - [Order management Services](#Order_management_Services)
+    - [Necessary Nuget Packages / Libraries](#Necessary_Nuget_Packages_/_Libraries)
+    - [Project Structure](#Project_Structure)
     - API Endpoints
     - API Documentations
         - Create New Order
