@@ -5,44 +5,44 @@
 
 
 ## Table of Contents
-- [Overview](#Overview)
+- [Overview](#overview)
 - [Task 1](#task-1): ERP project using ASP.NET Core WebAPI
     - Task Accomplished
         - [Backend](#backend)
         - [Database](#database)
     - [Services](#services)
-        - [Order management Services](#order-management-services-task-1)
-    - [Necessary Nuget Packages / Libraries](#necessary-nuget-packages-/-libraries)
+        - [Order Management Services](#order-management-services-task-1)
+    - [Necessary Nuget Packages / Libraries](#necessary-nuget-packages--libraries)
     - [Project Structure](#project-structure)
-    - API Endpoints
-    - API Documentations
-        - Create New Order
-        - Update Order
-        - Delete order by id
-        - List of all orders
-        - Summary of ordered products
-        - Retrive products below a threshold
-        - Get top 3 customers
-        - Find un-ordered products
-        - Create Bulk Order
-- Task 2: Creating Basic Authentication System (JWT Token Based)
+    - [API Endpoints](#api-endpoints)
+    - [API Documentations](#api-documentations)
+        - [Create New Order](#create-new-order)
+        - [Update Order](#update-order)
+        - [Delete order by id](#delete-order-by-id)
+        - [List of all orders](#list-of-all-orders)
+        - [Summary of ordered products](#summary-of-ordered-products)
+        - [Retrieve products below a threshold](#retrieve-products-below-a-threshold)
+        - [Get top 3 customers](#get-top-3-customers)
+        - [Find un-ordered products](#find-un-ordered-products)
+        - [Create Bulk Order](#create-bulk-order)
+- [Task 2](#task-2): Creating Basic Authentication System (JWT Token Based)
     - Task Accomplished
-        - Backend
-        - Database
-    - Services
-        - Authentication Service
-    - Necessary Nuget Packages / Libraries
-    - Project Structure
-    - API Endpoints
-    - API Documentations
-        - Register a New User
-        - Login User
-        - Access secure data (Token based Authorization)
-- Technology Stack
-- How to run
-- Acknowledgement
-- Limitations
-- Conclusions
+        - [Backend](#backend-1)
+        - [Database](#database-1)
+    - [Services](#services-1)
+        - [Authentication Service](#authentication-service)
+    - [Necessary Nuget Packages / Libraries](#necessary-nuget-packages--libraries-1)
+    - [Project Structure](#project-structure-1)
+    - [API Endpoints](#api-endpoints-1)
+    - [API Documentations](#api-documentations-1)
+        - [Register a New User](#register-a-new-user)
+        - [Login User](#login-user)
+        - [Access secure data (Token based Authorization)](#access-secure-data-token-based-authorization)
+- [Technology Stack](#technology-stack)
+- [How to run](#how-to-run)
+- [Acknowledgement](#acknowledgement)
+- [Limitations](#limitations)
+- [Conclusions](#conclusions)
 
 
 
